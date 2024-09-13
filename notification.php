@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>incomes</title>
+  <title>Notifications</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="../dist/img/logo1.jpg" type="image/jpeg">
 
@@ -26,37 +26,6 @@
 <div class="wrapper">
 <?php
 include "./includes/header.php";
-
-
-// Get userId from the URL parameter
-$userId = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
-
-if ($userId > 0) {
-    // Fetch data from the database
-    try {
-        $stmt = $pdo->prepare("
-            SELECT
-                t.description,
-                t.amount,
-                t.type,
-                t.category,
-                t.createdAt
-            FROM
-                transactions t
-            WHERE
-                t.userId = :userId and t.type = :type
-        ");
-        $type = "expense";
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':type', $type);
-        $stmt->execute();
-        $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        $error_message = "Failed to retrieve transactions: " . $e->getMessage();
-    }
-} else {
-    $error_message = "Invalid user ID.";
-}
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -66,12 +35,12 @@ if ($userId > 0) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Manage User Expenses</h1>
+            <h1>Manage Notifications</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manage User Expenses</li>
+              <li class="breadcrumb-item active">Manage notifications</li>
             </ol>
           </div>
         </div>
@@ -85,41 +54,24 @@ if ($userId > 0) {
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <?php if (isset($error_message)): ?>
-                <div class="alert alert-danger">
-                  <?php echo htmlspecialchars($error_message); ?>
+              <form action="https://finance-zgvt.onrender.com/email" method="POST">
+                <div class="form-group">
+                  <label for="email">Recipient Email:</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Enter recipient's email">
                 </div>
-              <?php endif; ?>
-              <table id="example1" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                  <th>N<sup><u>o</u></sup></th>
-                  <th>Description</th>
-                  <th>Amount</th>
-                  <th>Type</th>
-                  <th>Category</th>
-                  <th>Expense made at</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php if (!empty($transactions)): ?>
-                  <?php foreach ($transactions as $index => $transaction): ?>
-                    <tr>
-                      <td><?php echo $index + 1; ?></td>
-                      <td><?php echo htmlspecialchars($transaction['description']); ?></td>
-                      <td><?php echo htmlspecialchars($transaction['amount']); ?></td>
-                      <td><?php echo htmlspecialchars($transaction['type']); ?></td>
-                      <td><?php echo htmlspecialchars($transaction['category']); ?></td>
-                      <td><?php echo htmlspecialchars($transaction['createdAt']); ?></td>
-                    </tr>
-                  <?php endforeach; ?>
-                <?php else: ?>
-                  <tr>
-                    <td colspan="5">No transactions found.</td>
-                  </tr>
-                <?php endif; ?>
-                </tbody>
-              </table>
+                
+                <div class="form-group">
+                  <label for="subject">Subject:</label>
+                  <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter subject">
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Message:</label>
+                  <textarea class="form-control" id="message" name="message" rows="4" placeholder="Enter your message"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send Email</button>
+              </form>
             </div>
             <!-- /.card-body -->
           </div>
