@@ -1,13 +1,14 @@
 <?php
 // Retrieve environment variables
-$dbName = "finance";
-$dbHost = "localhost";
-$dbUser = "root";
-$dbPassword = "";
+$dbName = getenv('MYSQL_ADDON_DB');
+$dbHost = getenv('MYSQL_ADDON_HOST');
+$dbPort = getenv('MYSQL_ADDON_PORT');
+$dbUser = getenv('MYSQL_ADDON_USER');
+$dbPassword = getenv('MYSQL_ADDON_PASSWORD');
 
 try {
     // Create a new PDO instance
-    $dsn = "mysql:host=$dbHost;dbname=$dbName";
+    $dsn = "mysql:host=$dbHost;port=$dbPort;dbname=$dbName";
     $pdo = new PDO($dsn, $dbUser, $dbPassword);
 
     // Set the PDO error mode to exception
