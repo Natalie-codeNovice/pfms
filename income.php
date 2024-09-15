@@ -38,7 +38,8 @@ if ($userId > 0) {
                 t.amount,
                 t.type,
                 t.category,
-                t.createdAt
+                t.createdAt,
+                t.userId
             FROM
                 transactions t
             WHERE
@@ -96,6 +97,7 @@ if ($userId > 0) {
                   <th>Type</th>
                   <th>Category</th>
                   <th>Income made at</th>
+                  <th>Options</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -108,6 +110,18 @@ if ($userId > 0) {
                       <td><?php echo htmlspecialchars($transaction['type']); ?></td>
                       <td><?php echo htmlspecialchars($transaction['category']); ?></td>
                       <td><?php echo htmlspecialchars($transaction['createdAt']); ?></td>
+                      <td>
+                    <!-- Dropdown Menu -->
+                      <span class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href = "">...</a>
+                      </span>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="income.php?user_id=<?php echo $transaction['userId']; ?>">View Income</a>
+                        <a class="dropdown-item" href="expense.php?user_id=<?php echo $transaction['userId']; ?>">View Expenses</a>
+                        <a class="dropdown-item" href="savings.php?user_id=<?php echo $transaction['userId']; ?>">View Savings</a>
+                        <a class="dropdown-item" href="sessions.php?user_id=<?php echo $transaction['userId']; ?>">View Sessions</a>
+                      </div>
+                    </td>
                     </tr>
                   <?php endforeach; ?>
                 <?php else: ?>

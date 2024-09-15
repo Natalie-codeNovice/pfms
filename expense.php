@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>incomes</title>
+  <title>User expenses</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="../dist/img/logo1.jpg" type="image/jpeg">
 
@@ -40,7 +40,8 @@ if ($userId > 0) {
                 t.amount,
                 t.type,
                 t.category,
-                t.createdAt
+                t.createdAt,
+                t.userId
             FROM
                 transactions t
             WHERE
@@ -99,6 +100,7 @@ if ($userId > 0) {
                   <th>Type</th>
                   <th>Category</th>
                   <th>Expense made at</th>
+                  <th>Options</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -111,6 +113,18 @@ if ($userId > 0) {
                       <td><?php echo htmlspecialchars($transaction['type']); ?></td>
                       <td><?php echo htmlspecialchars($transaction['category']); ?></td>
                       <td><?php echo htmlspecialchars($transaction['createdAt']); ?></td>
+                      <td>
+                    <!-- Dropdown Menu -->
+                      <span class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href = "">...</a>
+                      </span>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="income.php?user_id=<?php echo $transaction['userId']; ?>">View Income</a>
+                        <a class="dropdown-item" href="expense.php?user_id=<?php echo $transaction['userId']; ?>">View Expenses</a>
+                        <a class="dropdown-item" href="savings.php?user_id=<?php echo $transaction['userId']; ?>">View Savings</a>
+                        <a class="dropdown-item" href="sessions.php?user_id=<?php echo $transaction['userId']; ?>">View Sessions</a>
+                      </div>
+                    </td>                      
                     </tr>
                   <?php endforeach; ?>
                 <?php else: ?>

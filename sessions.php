@@ -26,7 +26,6 @@
 <div class="wrapper">
 <?php
 include "./includes/header.php";
-include "./includes/conn.php"; // Include your database connection file
 
 // Get userId from the URL parameter
 $userId = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
