@@ -1,80 +1,19 @@
 <?php
-include "./includes/conn.php";
+// index.php
 
-// Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+// Get the page parameter from the URL
+$page = $_GET['page'] ?? 'home'; // Default to 'home' if no page is specified
 
-    // Prepare SQL statement
-    $role = "admin";
-    $stmt = $pdo->prepare("SELECT id, password FROM Users WHERE username = :username AND role = :role");
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':role', $role);
-    $stmt->execute();
+// Sanitize the page parameter to prevent directory traversal attacks
+$page = preg_replace('/[^a-zA-Z0-9_-]/', '', $page); // Allow only alphanumeric, underscores, and hyphens
 
-    // Fetch the user
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+// Check if the requested page file exists
+$pageFile = $page . '.php';
 
-    if ($user && password_verify($password, $user['password'])) {
-        // Password is correct
-        session_start();
-        $_SESSION['user_id'] = $user['id'];
-        header("Location: dash.php"); // Redirect to the dashboard or another page
-        exit();
-    } else {
-        // Invalid username or password
-        $error_message = "Invalid username or password.";
-    }
+// If the page file exists, include it; otherwise, show 404
+if (file_exists($pageFile)) {
+    include $pageFile;
+} else {
+    include '404.php'; // Show a 404 page if the page is not found
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- SweetAlert2 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    <style>
-        .container {
-            max-width: 500px;
-            margin-top: 100px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2 class="text-center">Login</h2>
-        <form id="loginForm" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </form>
-    </div>
-    <!-- jQuery and Bootstrap JS CDN -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- SweetAlert2 JS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        <?php if (isset($error_message)): ?>
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '<?php echo $error_message; ?>',
-                confirmButtonText: 'OK'
-            });
-        <?php endif; ?>
-    </script>
-</body>
-</html>

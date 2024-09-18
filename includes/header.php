@@ -32,7 +32,7 @@ try {
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="dash.php" class="nav-link">Home</a>
+        <a href="/dashboard" class="nav-link">Home</a>
       </li>
     </ul>
 
@@ -62,7 +62,7 @@ try {
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="dash.php" class="brand-link">
+    <a href="/dashboard" class="brand-link">
       <i class="fa fa-check-circle text-info mx-3" aria-hidden="true"></i> 
       <span class="brand-text font-weight-bold text-white">PFMS</span>
     </a>
@@ -75,7 +75,7 @@ try {
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="dash.php" class="d-block"><?php echo htmlspecialchars($username); ?></a>
+          <a href="/dashboard" class="d-block"><?php echo htmlspecialchars($username); ?></a>
         </div>
       </div>
 
@@ -94,13 +94,13 @@ try {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="manageUsers.php" class="nav-link">
+                <a href="/users" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="donations.php" class="nav-link">
+                <a href="/donations" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Donations</p>
                 </a>
@@ -116,7 +116,7 @@ try {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="notification.php" class="nav-link">
+                <a href="/notification" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Send notification</p>
                 </a>
