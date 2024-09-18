@@ -1,9 +1,9 @@
 <?php
 // Retrieve environment variables
-$dbName = "finance";
-$dbHost = "localhost";
-$dbUser = "root";
-$dbPassword = "";
+$dbHost = getenv('MYSQL_ADDON_HOST') ?: 'localhost';
+$dbName = getenv('MYSQL_ADDON_DB') ?: 'finance';
+$dbUser = getenv('MYSQL_ADDON_USER') ?: 'root';
+$dbPassword = getenv('MYSQL_ADDON_PASSWORD') ?: '';
 
 try {
     // Create a new PDO instance
