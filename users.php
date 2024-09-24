@@ -103,10 +103,10 @@ try {
                         <a href = "">...</a>
                       </span>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="income.php?user_id=<?php echo $user['id']; ?>">View Income</a>
-                        <a class="dropdown-item" href="expense.php?user_id=<?php echo $user['id']; ?>">View Expenses</a>
-                        <a class="dropdown-item" href="savings.php?user_id=<?php echo $user['id']; ?>">View Savings</a>
-                        <a class="dropdown-item" href="sessions.php?user_id=<?php echo $user['id']; ?>">View Sessions</a>
+                        <a class="dropdown-item" href="income?user_id=<?php echo $user['id']; ?>">View Income</a>
+                        <a class="dropdown-item" href="expense?user_id=<?php echo  $user['id']; ?>">View Expenses</a>
+                        <a class="dropdown-item" href="savings?user_id=<?php echo $user['id']; ?>">View Savings</a>
+                        <a class="dropdown-item" href="sessions?user_id=<?php echo $user['id']; ?>">View Sessions</a>
                       </div>
                   </td>
                 </tr>
