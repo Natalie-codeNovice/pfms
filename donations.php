@@ -54,12 +54,12 @@ try {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Manage Users</h1>
+            <h1>Manage Donations</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manage Users</li>
+              <li class="breadcrumb-item active">Manage Donations</li>
             </ol>
           </div>
         </div>

@@ -124,6 +124,28 @@ try {
                     </ul>
                 </li>
 
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-book"></i>
+                        <p>Reports</p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/pfms/user" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>User</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/pfms/transactions" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>transactions</p>
+                            </a>
+                        </li>                        
+                    </ul>
+                </li>                
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="fa fa-cog"></i>
