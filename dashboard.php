@@ -31,7 +31,7 @@
       $role = "user";
       $isVerified = "1";
     
-      $stmt = $pdo->prepare("SELECT COUNT(*) as user_count FROM Users WHERE role = :role AND isVerified = :isVerified");
+      $stmt = $pdo->prepare("SELECT COUNT(*) as user_count FROM users WHERE role = :role AND isVerified = :isVerified");
       $stmt->bindParam(':role', $role);
       $stmt->bindParam(':isVerified', $isVerified);
       $stmt->execute();
@@ -42,7 +42,21 @@
       $error_message = "Failed to retrieve data: " . $e->getMessage();
     }
     
-    
+
+        // Prepare the SQL query to sum donations
+        $sql = "SELECT SUM(amount) AS total_donations FROM donations";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        
+        // Fetch the result
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Check if the result is not null
+        if ($result && $result['total_donations'] !== null) {
+            $amt = number_format($result['total_donations'], 2);
+        } else {
+            $amt = 0;
+        }
     ?>
     
     <!-- Content Wrapper. Contains page content -->
@@ -80,20 +94,20 @@
                             <div class="icon">
                                 <i class="fa fa-users"></i>
                             </div>
-                            <a href="/users" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="/pfms/users" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-12">
                         <!-- small box -->
-                        <div class="small-box bg-info">
+                        <div class="small-box bg-success">
                             <div class="inner">
-                                <h3><?php echo htmlspecialchars($user_count); ?></h3>
-                                <p>Users</p>
+                                <h3><?php echo $amt ?></h3>
+                                <p>Donations</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-users"></i>
+                                <i class="fa fa-heart"></i>
                             </div>
-                            <a href="/users" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="/pfms/donations" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>                    
                     <!-- ./col -->

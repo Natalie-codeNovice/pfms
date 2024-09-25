@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Prepare SQL statement
     $role = "admin";
-    $stmt = $pdo->prepare("SELECT id, password FROM Users WHERE username = :username AND role = :role");
+    $stmt = $pdo->prepare("SELECT id, password FROM users WHERE username = :username AND role = :role");
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':role', $role);
     $stmt->execute();
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Password is correct
         session_start();
         $_SESSION['user_id'] = $user['id'];
-        header("Location:/dashboard");
+        header("Location:/pfms/dashboard");
         exit();
     } else {
         $error_message = "Invalid username or password.";
